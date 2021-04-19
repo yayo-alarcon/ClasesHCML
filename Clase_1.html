@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Herramientas Computacionales, Algoritmos y Machine Learning (HCML)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="John Smith" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: left, bottom
+background-image: url(media/logo.png)
+background-position: 95% 7%
+background-size: 40%
+
+# Herramientas Computacionales, Algoritmos y Machine Learning (HCML)
+----
+## Clase 1 : Introducción a R
+### John Smith
+### 
+
+---
+class: left, middle
+
+# Clase 1: Introducción a R
+
+.pull-left[
+.left[
+
+* [**Introducción**](#intro)
+
+* [**R, RStudio y RStudioCloud**](#erre)
+
+* [**Script, comentarios y secciones**](#script)
+
+* [**Directorios de Trabajo y Proyectos**](#proyectos)
+
+* [**Cálculos**](#calculos)
+]
+
+] &lt;!--end of left-column--&gt;
+
+.pull-right[
+.left[
+
+* [**Funciones**](#funciones)
+
+* [**Objetos**](#objetos)
+
+* [**Paquetes**](#paquetes)
+
+* [**Errores**](#error)
+
+* [**Referencias y material complementario**](#adios)
+]
+
+] &lt;!--end of right-column--&gt;
+
+
+---
+
+
+
+## Recomendaciones Generales
+
+&lt;h3&gt;&lt;u&gt; Si tienes alguna duda,¡pregunta! &lt;/u&gt;&lt;/h3&gt;
+&lt;p style='text-align: justify;'&gt;Los ayudantes estarán disponibles para ser consultados durante las clases, mediante el chat de Zoom, y fuera de ellas, mediante correo electrónico. Los ayudantes de esta sección son los siguientes:&lt;/p&gt;
+
+.pull-left[
+&lt;h3&gt;A - Sección Johnson&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt; Roberto Olguín - rnolguin@uc.cl&lt;/li&gt;
+	&lt;li&gt; Katherine Epple - ksepple@uc.cl&lt;/li&gt;
+	&lt;li&gt; Javiera Romero - jcromero2@uc.cl&lt;/li&gt;
+&lt;/ul&gt;
+]
+
+.pull-right[
+&lt;/br&gt;
+&lt;img src="media/ay_johnson.png" width="400px"&gt;
+]
+---
+
+## Recomendaciones Generales
+
+&lt;h3&gt;&lt;u&gt; Si tienes alguna duda,¡pregunta! &lt;/u&gt;&lt;/h3&gt;
+&lt;p style='text-align: justify;'&gt;Los ayudantes estarán disponibles para ser consultados durante las clases, mediante el chat de Zoom, y fuera de ellas, mediante correo electrónico. Los ayudantes de esta sección son los siguientes:&lt;/p&gt;
+
+.pull-left[
+&lt;h3&gt;B - Sección Gauss&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt; Hernán Silva - hjsilva@uc.cl&lt;/li&gt;
+	&lt;li&gt; Claudio Alarcón - caalarcon1@uc.cl&lt;/li&gt;
+	&lt;li&gt; Paula Muñoz - pmuoz@uc.cl&lt;/li&gt;
+&lt;/ul&gt;
+]
+
+.pull-right[
+&lt;/br&gt;
+&lt;img src="media/ay_gauss.png" width="400px"&gt;
+]
+---
+
+## Recomendaciones Generales
+
+&lt;h3&gt;&lt;u&gt; Si tienes alguna duda,¡pregunta! &lt;/u&gt;&lt;/h3&gt;
+&lt;p style='text-align: justify;'&gt;Los ayudantes estarán disponibles para ser consultados durante las clases, mediante el chat de Zoom, y fuera de ellas, mediante correo electrónico. Los ayudantes de esta sección son los siguientes:&lt;/p&gt;
+
+.pull-left[
+&lt;h3&gt;C - Sección Vaughn&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt; Camila Paredes - ceparedes@uc.cl &lt;/li&gt;
+	&lt;li&gt; Benjamin Urrutia - burruta@uc.cl &lt;/li&gt;
+&lt;/ul&gt;
+]
+
+.pull-right[
+.center[
+&lt;img src="media/ay_vaughn.png" width="400px"&gt;
+]
+]
+
+
+---
+
+## Recomendaciones Generales
+
+&lt;h3&gt;&lt;u&gt; Si tienes alguna duda,¡pregunta! &lt;/u&gt;&lt;/h3&gt; 
+&lt;p style='text-align: justify;'&gt;Los ayudantes estarán disponibles para ser consultados durante las clases, mediante el chat de Zoom, y fuera de ellas, mediante correo electrónico. Los ayudantes de esta sección son los siguientes:&lt;/p&gt;
+
+.pull-left[
+&lt;h3&gt;D - Sección Turing&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt; Edward Marinao - eimarinao@uc.cl &lt;/li&gt;
+	&lt;li&gt; Elías Alvear - egalvear@uc.cl &lt;/li&gt;
+&lt;/ul&gt;
+]
+
+.pull-right[
+.center[
+&lt;img src="media/ay_turing.png" width="400px"&gt;
+]
+]
+
+
+---
+
+## Recomendaciones Generales
+
+&lt;h3&gt;&lt;u&gt; Si tienes alguna duda,¡pregunta! &lt;/u&gt;&lt;/h3&gt;
+&lt;p style='text-align: justify;'&gt;Los ayudantes estarán disponibles para ser consultados durante las clases, mediante el chat de Zoom, y fuera de ellas, mediante correo electrónico. Los ayudantes de esta sección son los siguientes:&lt;/p&gt;
+
+.pull-left[
+&lt;h3&gt;E - Sección Jackson&lt;/h3&gt;
+&lt;ul&gt;
+	&lt;li&gt;Natalie Julian- najulian@uc.cl&lt;/li&gt;
+	&lt;li&gt;Javiera Preuss- javiera.preuss@uc.cl&lt;/li&gt;
+&lt;/ul&gt;
+]
+
+.pull-right[
+.center[
+&lt;img src="media/ay_jackson.png" width="400px"&gt;
+]
+]
+
+
+---
+
+
+
+# Recomendaciones Generales 
+
+
+.pull-left[
+.left[
+
+&lt;h3&gt;&lt;u&gt; ¡Trata de tener más de una pantalla! &lt;/u&gt;&lt;/h3&gt;
+
+
+Tener una segunda pantalla para las clases es ideal, puede ser tú celular, una tablet o incluso un televisor. Esto les permitirá ver al mismo tiempo las clases y trabajar en tú propio computador.
+
+]
+]
+
+
+.pull-right[
+.center[
+
+&lt;/br&gt;
+&lt;img src="media/pantallas.png" width="350px"&gt;
+
+]
+]
+
+---
+name: intro
+class: inverse, center, middle
+
+# Introducción
+
+
+---
+# Data Science - Flujo de trabajo
+
+.center[&lt;img src="media/flujo.png"&gt;]
+
+.center[
+Ilustración por [Allison Horst](https://github.com/allisonhorst) basada en el esquema de flujo del libro R for Data Science de  Grolemund &amp; Wickham.
+]
+
+---
+# Herramientas y software para DS
+.center[&lt;img src="media/programas.png"&gt;]
+.pull-right[.center[¡Entre otros!]]
+---
+name: erre
+class: inverse, center, middle
+
+# R, RStudio y RStudioCloud
+
+
+
+---
+
+# R y RStudio
+
+.pull-left[
+.center[
+
+&lt;img src="media/r.png" height="150px" width="300px"&gt;
+
+&lt;h3 align="center"&gt; R &lt;/h3&gt;
+
+&lt;p style='text-align: justify;'&gt;Es un lenguaje y entorno para computación estadística y gráficos. En este entorno se implementan  técnicas estadísticas y se extiende muy fácilmente a través de paquetes. Está disponible  como software libre. &lt;/p&gt;
+]
+]
+
+.pull-right[
+.center[
+&lt;img src="media/rtudio.png" align="center" height="150px" width="300px"&gt;
+
+&lt;h3 align="center"&gt; RStudio &lt;/h3&gt;
+
+&lt;p style='text-align: justify;'&gt;Es un entorno de desarrollo integrado (IDE) para R. Incluye varios elementos que facilitan las tareas durante el flujo de trabajo. &lt;/p&gt;
+
+]
+]
+---
+
+# Instalación (Video)
+
+
+
+.left[En el siguiente video se puede ver el paso a paso de donde descargar e instalar R y RStudio:]
+
+
+.center[
+&lt;video height="250" controls&gt;
+  &lt;source src="media/instalacion.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+]
+
+.left[Los links de descargas se pueden encontrar a continuación:] 
+
+- [Descargar R](https://cran.r-project.org/)
+- [Decargar RStudio](https://www.rstudio.com/products/rstudio/download/)
+
+
+
+
+
+---
+# R
+
+Así es como se ve R:
+
+.center[
+&lt;img src="media/img1.png" height='350px'&gt;
+]
+
+
+Tenemos una ventana que corresponde a la **consola** y otra que es el **editor** o **script**.
+
+---
+# RStudio
+
+Así es como se ve RStudio:
+
+.center[
+&lt;img src="media/img2.png" height='300px'&gt;
+]
+
+
+Tenemos varios espacios de trabajo dispuestos en 3 paneles:
+&lt;ul&gt;
+&lt;li&gt;&lt;span style="color: red;"&gt;  Consola .&lt;/span&gt; &lt;/li&gt;
+&lt;li&gt;&lt;span style="color: blue;"&gt;  Environment  &lt;/span&gt; (ambiente de trabajo). &lt;/li&gt; 
+&lt;li&gt;&lt;span style="color: green;"&gt;  Panel de visualización y ayuda. &lt;/span&gt; &lt;/li&gt;
+&lt;/ul&gt;
+---
+# RStudioCloud
+
+.pull-left[
+&lt;p style='text-align: justify;'&gt;
+Si no queremos/podemos instalar R en nuestros equipos, tenemos la opción de usar su versión en la nube, llamada &lt;a href='https://rstudio.cloud/'&gt;RStudioCloud&lt;a&gt;.&lt;/p&gt;
+
+&lt;p style='text-align: justify;'&gt;A diferencia de RStudio, para empezar a trabajar con RStudioCloud necesitamos crear un &lt;b&gt;proyecto&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p style='text-align: justify;'&gt;El plan gratuito de RStudioCloud es suficiente para el trabajo que realizaremos en el diplomado, uno puede crearse una cuenta accediendo al siguiente &lt;a href='https://rstudio.cloud/plans/free'&gt;link&lt;/a&gt;.&lt;/p&gt;
+
+
+]
+
+.pull-right[
+&lt;img src="media/img3.png" height='300px'&gt;
+]
+---
+class: inverse
+# Personalización
+
+&lt;p style='text-align: justify;'&gt; Un aspecto importante de RStudio y RStudioCloud es que podemos personalizar la apariencia de nuestro programa. Como estaremos expuestos a muchas horas de programación es recomendable cambiar el tema predeterminado a uno oscuro, esto se hace en: &lt;b&gt;&lt;code style="color: white;"&gt;Tools &gt; Global Options &gt; Appearence &lt;/code&gt;&lt;/b&gt; &lt;/p&gt; 
+
+
+.center[ &lt;img src="media/cobalt.png" height='375px'&gt; ]
+
+
+---
+# RStudioCloud
+Así es como se ve RStudioCloud, es prácticamente igual a RStudio:
+
+.center[
+&lt;img src="media/img4.png" height='300px'&gt;
+]
+
+
+Tenemos varios espacios de trabajo dispuestos en 3 paneles:
+&lt;ul&gt;
+&lt;li&gt;&lt;span style="color: red;"&gt;  Consola.  &lt;/span&gt; &lt;/li&gt;
+&lt;li&gt;&lt;span style="color: blue;"&gt;  Environment  &lt;/span&gt; (ambiente de trabajo). &lt;/li&gt; 
+&lt;li&gt;&lt;span style="color: green;"&gt;  Panel de visualización y ayuda. &lt;/span&gt; &lt;/li&gt;
+&lt;/ul&gt;
+
+---
+
+# Primeros pasos en R 
+
+  1. Abre RStudio o RStudioCloud.
+  
+  2. Escribe (Copia y Pega) en la consola el siguiente código y presiona &lt;code&gt;Enter&lt;/code&gt; 
+  
+
+```r
+print("Hola R")
+paste("Hola", "R", sep=" ")
+```
+
+--
+Al hacerlo, obtendrás en la consola lo siguiente despues de cada ejecuión:
+
+```
+## [1] "Hola R"
+```
+
+--
+
+Ahora teclea la secuencia `Ctrl+L` / `Cmd+L` ¿Qué ocurrió?
+
+
+---
+name: script
+
+# Script (archivo .R)
+
+
+Un script es un espacio en donde escribimos el código que queremos conservar.
+Para crear un nuevo script podemos hacer cualquiera de estas opciones:
+
+&lt;ul&gt;
+&lt;li&gt; Click en &lt;b&gt;&lt;code&gt;File &gt; New File &gt; R Script&lt;/b&gt;&lt;/code&gt;&lt;/li&gt; 
+&lt;li&gt; Teclear &lt;b&gt;&lt;code&gt;Ctrl/Cmd + Shift + N&lt;/b&gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+.center[
+&lt;img src="media/script.png" height='275px'&gt;
+]
+
+Ahora tenemos cuatro paneles, el 	&lt;span style="color: orange;"&gt;script&lt;/span&gt; aparece en el bloque de la esquina superior izquierda.
+
+
+---
+
+# Script (archivo .R)
+
+Para ejecutar (“correr”) código en el script de R, tenemos distintas opciones:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;b&gt;&lt;code&gt;Ctrl/Cmd + Enter&lt;/code&gt;&lt;/b&gt;  →  Ejecutar línea de código/expresión seleccionada&lt;/li&gt; 
+&lt;li&gt;&lt;b&gt;&lt;code&gt;Ctrl/Cmd + Shift + N&lt;/code&gt;&lt;/b&gt;  →  Ejecutar todo el código (source)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p style='text-align: justify;'&gt;Para guardar nuestro script podemos teclear &lt;b&gt;&lt;code&gt;Ctrl + S&lt;/code&gt;&lt;/b&gt; o hacer click en el ícono del disquette que está sobre el script, esto guardará un archivo .R con el nombre que le asignemos.&lt;/p&gt;
+
+&lt;p style='text-align: justify;'&gt;En RStudio tenemos &lt;b&gt;diagnóstico de errores&lt;/b&gt; en la sintáxis de código y &lt;b&gt;autocompletado&lt;/b&gt;: &lt;/p&gt;
+
+.pull-left[.center[   Diagnóstico de errores]]
+.pull-right[.center[Autocompletado]]
+.center[
+&lt;img src="media/diag-auto.png" width='600px'&gt;]
+
+---
+
+
+
+# Comentarios y Secciones
+
+&lt;p style='text-align: justify;'&gt; En R podemos comentar lineas de código anteponiendo el símbolo &lt;b&gt;#&lt;/b&gt;, esto nos permite ordenar nuestro código, hacer descripciones de que estamos ejecutando o guardar código que no queramos ejecutar: &lt;/p&gt;
+
+
+```r
+### Este es un comentario de R, puedes usarlo para poner títulos!
+
+5+5 ## También para comentar despúes de operaciones/código! 
+
+# print("Diplomado en Data Science UC")
+```
+
+Tambien uno puede comentar una o múltiples líneas seleccionando el código y tecleando **`Ctrl/Cmd + Shift + C`**.
+ 
+&lt;p style='text-align: justify;'&gt;Finalmente, la secuencia &lt;b&gt;&lt;code&gt;Ctrl/Cmd + R&lt;/code&gt;&lt;/b&gt; nos permite seccionar fácilmente nuestro código. Al teclearlo aparecerá una ventana emergente en donde tendremos que colocar el nombre de la sección. &lt;/p&gt;
+
+---
+
+class: inverse
+
+# Actividad práctica
+
+&lt;ol&gt;
+  &lt;li&gt;Crea un nuevo script&lt;/li&gt;
+  &lt;li&gt;Guárdalo con el nombre "Sesion1"&lt;/li&gt;
+  &lt;li&gt;Añade una sección con tu nombre (&lt;b&gt;&lt;code style="color: white;"&gt;Ctrl/Cmd + R&lt;/code&gt;&lt;/b&gt;)&lt;/li&gt;
+  &lt;li&gt;Copia, pega y ejecuta este código en el script:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+```r
+poleras &lt;- c(254,203,182,50)
+meses &lt;- c("Ene", "Feb", "Mar", "Abr")
+min(poleras)
+plot(poleras)
+barplot(poleras,names.arg = meses,col="orange")
+```
+
+
+---
+name: proyectos
+
+# Directorios de trabajo
+
+El directorio de trabajo es donde R:
+&lt;ul&gt;
+&lt;li&gt; Busca los arcivos que le pedimos leer.&lt;/li&gt;
+&lt;li&gt; Coloca los archivos que le pedimos guardar.&lt;/li&gt;
+&lt;/ul&gt;
+Las rutas y directorios pueden causar complicaciones principalmente porque se escriben de manera diferente según el sistema operativo y porque es muy difícil que alguien más tenga la misma configuración de directorios que nosotros.
+
+Ejecuta el código: **`getwd()`** para conocer tu directorio de trabajo actual.
+
+---
+# Proyectos de RStudio
+
+&lt;p style='text-align: justify;'&gt;Durante nuestro flujo de trabajo lo ideal es mantener todos los archivos relacionados a un análisis en un mismo lugar, es por esto que trabajaremos con los Proyectos de RStudio. Trabajar con proyectos es una buena práctica que nos ahorrará muchos dolores de cabeza. &lt;/p&gt;
+
+En el siguiente video se muestra como crear un proyecto:
+
+.center[
+&lt;video height="250" controls&gt;
+  &lt;source src="media/proyecto.mp4" type="video/mp4"&gt;
+&lt;/video&gt;
+]
+---
+
+class: inverse
+
+# Actividad práctica
+
+&lt;ol&gt;
+  &lt;li&gt;Crea un nuevo proyecto para esta clase, llámalo HCsesion1&lt;/li&gt;
+  &lt;li&gt;Abre el proyecto y ejecuta el siguiente código &lt;b&gt;&lt;code style="color: white;"&gt;getwd()&lt;/code&gt;&lt;/b&gt;&lt;/li&gt;
+  &lt;li&gt;Crea un nuevo script y ejecuta el siguiente código:&lt;/li&gt;
+&lt;/ol&gt;
+
+
+```r
+poleras &lt;- c(254,203,182,50)
+meses &lt;- c("Ene", "Feb", "Mar", "Abr")
+min(poleras)
+plot(poleras)
+barplot(poleras,names.arg = meses,col="orange")
+```
+--
+
+Ahora crea una carpeta dentro de tu proyecto llamada datos y ejecuta el siguiente código.
+
+
+```r
+write.csv(cbind(meses, poleras),"datos/poleras.csv")
+read.csv("datos/poleras.csv")
+```
+
+---
+name: calculos
+
+# Cálculos en R
+
+
+.pull-left[R se puede usar como una calculadora.  
+Algunas operaciones que podemos realizar son: 
+
+
+|   | Operación | 
+|------:|:-----|
+| + | suma | 
+| - | resta | 
+| * | multiplicación | 
+| / | división | 
+| %/% | división entera| 
+| ^ | potencia | 
+| sqrt() | raíz cuadrada | 
+| log() | logaritmo base e | 
+| exp() | exponencial| 
+| abs() | Valor Absoluto| 
+
+]
+
+--
+
+.pull-right[ 
+
+&lt;b&gt;Calcule en R &lt;/b&gt;
+
+`\(a.- ~~~ 2 + 4 \times 5 - e^3\)`
+
+
+`\(b.- ~~~ \log(5) + \frac{\pi}{\sqrt{5}}\)`
+]
+
+---
+
+# Cálculos en R
+
+
+.pull-left[R se puede usar como una calculadora.  
+Algunas operaciones que podemos realizar son: 
+
+
+|   | Operación | 
+|------:|:-----|
+| + | suma | 
+| - | resta | 
+| * | multiplicación | 
+| / | división | 
+| %/% | división entera| 
+| ^ | potencia | 
+| sqrt() | raíz cuadrada | 
+| log() | logaritmo base e | 
+| exp() | exponencial| 
+| abs() | Valor Absoluto| 
+
+]
+
+.pull-right[ 
+
+&lt;b&gt;Calcule en R &lt;/b&gt;
+
+`\(a.- ~~~ 2 + 4 \times 5 - e^3\)`
+
+
+`\(b.- ~~~ \log(5) + \frac{\pi}{\sqrt{5}}\)`
+
+
+&lt;b&gt;Solución&lt;/b&gt;
+
+
+```r
+2 + (4*5) - exp(3)
+```
+
+```
+## [1] 1.914463
+```
+
+```r
+log(5) + pi/sqrt(5)
+```
+
+```
+## [1] 3.014401
+```
+]
+
+---
+name: funciones
+
+# La lógica del funcionamiento de R
+
+En lo relacionado con el análisis de datos, la lógica de R es bastante amigable
+
+.center[&lt;img src="media/funcion2.png" width='500px'&gt;]
+
+&lt;p style='text-align: justify;'&gt; Los &lt;span style="color: #990000;"&gt;&lt;b&gt;...&lt;/b&gt;&lt;/span&gt; corresponden a los argumentos que modifican la acción a realizar, dependiendo de la función esta puede o no tener argumentos y estos pueden ser tanto obligatorios como opcionales. &lt;/p&gt;
+
+---
+# 'Traduciendo' nuestras ideas
+
+
+&lt;b&gt;Datos&lt;/b&gt; : Cantidad de poleras diponibles por mes
+
+
+|  Meses | Poleras | 
+|------|-----|
+| Enero | 254 | 
+| Febrero | 203 | 
+| Marzo | 182 | 
+| Abril | 50 | 
+
+Ideas que pueden surgir al observar estos datos:
+
+&lt;ul&gt;
+  &lt;li&gt;Buscar como representar de manera gráfica los datos&lt;/li&gt;
+  &lt;li&gt; ¿Cual es la cantidad mínima de poleras en nuestros datos?&lt;/li&gt;
+&lt;/ul&gt;
+
+---
+# 'Traduciendo' nuestras ideas
+
+
+&lt;ul&gt;
+  &lt;li&gt;Buscar como representar de manera gráfica los datos&lt;/li&gt;
+  &lt;li&gt; ¿Cual es la cantidad mínima de poleras en nuestros datos?&lt;/li&gt;
+&lt;/ul&gt;
+
+
+.center[ &lt;i&gt;"Aprender a programar es como aprender una nueva lengua." &lt;/i&gt; ]
+
+
+```r
+# Definimos 'objetos' (Esto lo veremos más adelante)
+poleras &lt;- c(254,203,182,50)
+meses &lt;- c("Ene", "Feb", "Mar", "Abr")
+
+min(poleras) # Encuentra el mínimo
+
+plot(poleras) # Gráfico de puntos
+
+barplot(poleras, # Gráfico de barras
+        names.arg = meses,col="orange") # Argumentos adicionales.
+```
+
+---
+# Funciones en R
+
+La funciones son operaciones que están guardadas con un nombre específico en R. Hay funciones que requieren argumentos (inputs) y otras no. Los argumentos de una función van siempre dentro del paréntesis:
+
+
+
+```r
+sqrt(521) 
+getwd()
+Sys.Date()
+```
+
+Al escribir y ejecutar solo el nombre de la función podemos consultar el código almacenado en ella, por ejemplo: 
+
+```r
+sqrt
+```
+
+Podemos consultar ayuda y detalles de la función al ejecutar, esto se hace anteponiendo &lt;b&gt;&lt;code&gt;?&lt;/code&gt;&lt;/b&gt; o usando la función &lt;b&gt;&lt;code&gt;help()&lt;/code&gt;&lt;/b&gt;:
+
+
+```r
+?sqrt
+help(sqrt)
+```
+
+
+---
+
+# Funciones en R
+
+Si una función tiene más de un argumento estos se separan con una coma, para consultar los argumentos de una función usamos la función `args(nombrefuncion)`
+
+### Actividad
+
+&lt;b&gt;1.-&lt;/b&gt; ¿Qué argumentos recibe la función &lt;code&gt;&lt;b&gt;log()&lt;/b&gt;&lt;/code&gt;?
+
+--
+
+&lt;b&gt;Respuesta&lt;/b&gt; Esto se hace con el comando `args(log)`:
+
+
+```r
+args(log)
+```
+
+```
+## function (x, base = exp(1)) 
+## NULL
+```
+
+Tiene como argumentos `x` (el valor a calcular el logaritmo) y `base` (la base del logarítmo, por defecto la base es e).
+
+---
+
+## Actividad (continuación)
+
+&lt;b&gt;2.-&lt;/b&gt; ¿Cuál es la diferencia entre &lt;code&gt;&lt;b&gt;log(100,10)&lt;/b&gt;&lt;/code&gt;  y &lt;code&gt;&lt;b&gt;log(10,100)&lt;/b&gt;&lt;/code
+
+--
+
+&lt;b&gt;Respuesta&lt;/b&gt; En el primero calculamos el logaritmo de 100 en base 10, en el segundo calculamos el logaritmo de 10 en base 100.
+
+
+```r
+log(100,10)
+```
+
+```
+## [1] 2
+```
+
+```r
+log(10,100)
+```
+
+```
+## [1] 0.5
+```
+
+
+--
+&lt;/br&gt;
+&lt;b&gt;3.-&lt;/b&gt; ¿Cuál es el error en el siguiente código?: &lt;code&gt;&lt;b&gt;log(base=10)&lt;/b&gt;&lt;/code&gt; 
+
+--
+
+&lt;b&gt;Respuesta&lt;/b&gt; El error es que no estamos agregando el argumento `x`, en esta función sólo el argumento `x` es obligatorio.
+
+---
+name: objetos
+
+# Objetos en R
+
+Para guardar información y/o resultados en R creamos objetos, para crear objetos escribimos el nombre y “asignamos” los valores con el operador &lt;code&gt;&lt;b&gt;&lt;-&lt;/code&gt;&lt;/b&gt;. 
+
+Los nombres nos permiten representar resultados de una manera más sencilla y usarlos así en nuestro código, incluso podemos aplicarles funciones:
+
+--
+
+1.- Definimos un objeto llamado 'numero':
+
+```r
+numero &lt;- 256
+```
+
+--
+
+2.- Definimos a la raíz cuadrada de número como 'resultado':
+
+```r
+resultado &lt;- sqrt(numero)
+```
+
+--
+
+3.- Imprimimos en la consola el valor guardado en 'resultado':
+
+```r
+resultado
+```
+
+```
+## [1] 16
+```
+
+---
+
+# Objetos en R
+
+Si un el nombre de un objeto ya existe en nuestra sesión, R lo va a sobreescribir. Por ejemplo:
+--
+
+```r
+a &lt;- 5
+b &lt;- a
+a &lt;- 3
+```
+
+.center[
+¿Cuál es el valor de **`a`**?
+]
+
+--
+
+
+```r
+a
+```
+
+```
+## [1] 3
+```
+
+--
+.center[
+¿Cuál es el valor de **`b`**?
+]
+
+--
+
+
+```r
+b
+```
+
+```
+## [1] 5
+```
+
+--
+
+
+
+---
+
+
+# Asignaciones
+
+&lt;p style='text-align: justify;'&gt;Hay distintos operadores para crear nuevos objetos, los más usados son &lt;b&gt;&lt;code&gt;&lt;-&lt;/code&gt;&lt;/b&gt; y &lt;b&gt;&lt;code&gt;=&lt;/code&gt;&lt;/b&gt;&lt;/p&gt;
+
+
+```r
+nombre &lt;- objeto
+nombre = objeto
+```
+
+&lt;p style='text-align: justify;'&gt;Se recomienda usar &lt;b&gt;&lt;code&gt;&lt;-&lt;/code&gt;&lt;/b&gt;, dado que es fácil de reconocer visualmente y genera menos confusión que el signo &lt;b&gt;&lt;code&gt;=&lt;/code&gt;&lt;/b&gt;. Tambien podemos asignar usando &lt;code&gt;-&gt;&lt;/code&gt;, pero es poco usal y nos genera desorden en nuestro código.&lt;/p&gt;
+
+
+```r
+objeto -&gt; nombre
+```
+
+
+
+
+---
+
+# Recomendaciones
+
+
+&lt;ol&gt;
+
+&lt;li&gt;Utilizar un nombre que tenga alguna relación con los datos que contiene el objeto&lt;/li&gt;
+
+&lt;li&gt;Evitar caracteres especiales, como ñ, tildes o espacios&lt;/li&gt;
+
+&lt;li&gt;Para separar palabras se puede utilizar un guión bajo (proyeccion_enero) o mayúscula inicial (ProyeccionEnero). Lo importante es ser consistente en la opción elegida.&lt;/li&gt;
+&lt;/ol&gt;
+
+.center[
+&lt;h3&gt; ¡Recuerda que R es sensible a mayúsculas y minúsculas! &lt;/h3&gt;
+]
+
+¿Qué pasa al ejecutar el siguiente código?
+
+
+```r
+polera &lt;- c(254,203,182,50)
+
+mean(Polera)
+	
+sum(poleras)
+```
+
+
+---
+name: paquetes
+
+# Paquetes de R
+
+
+
+.pull-left[
+&lt;p style='text-align: justify;'&gt;Para hacer efectiva la actualización del software, y basado en el foco académico, R utiliza librerías como conjunto de funciones, datos y documentación que denominaremos paquetes o packages. &lt;/p&gt;
+
+&lt;p style='text-align: justify;'&gt;Cuando iniciamos R se carga solo un conjunto de funciones, datos y documentación que se conoce como &lt;b&gt;R Base&lt;/b&gt;.&lt;p&gt; 
+
+&lt;p style='text-align: justify;'&gt;Para extender las posibilidades de &lt;b&gt;R Base&lt;/b&gt; tenemos que instalar otros paquetes.&lt;p&gt;
+
+
+]
+
+.pull-right[
+.center[
+&lt;img src="media\rstudiopackages.png"
+width="225px" 
+/&gt;
+]]
+
+---
+# Paquetes de R
+
+&lt;br/&gt;
+
+.center[
+### A la fecha de hoy, el total de packages disponibles en  el [CRAN](https://cran.r-project.org/web/packages/) de R es de: 
+
+
+## 17.464
+]
+
+---
+# Paquetes de R
+
+Los packages se pueden instalar directamente desde el software o descargarlos de forma manual, esto último se puede hacer desde dos fuentes: 
+
+
+.pull-left[
+### CRAN 
+**Comprehensive R Archive Network**
+
+&lt;p style='text-align: justify;'&gt;Es el repositorio oficial de paquetes de R. 
+Para estar acá los paquetes deben ser aprobados.&lt;/p&gt;
+
+
+```r
+install.packages("nombrepaquete")
+```
+]
+
+.pull-right[
+### GitHub
+
+&lt;p style='text-align: justify;'&gt;Plataforma para desarrollo de software. Muchos paquetes solo se comparten por acá.
+En Github también podemos acceder a la versión en desarrollo de paquetes que están en CRAN.&lt;/p&gt;
+
+
+```r
+install.packages("remotes")
+remotes::install_github("usuario/paquete")
+```
+]
+
+&lt;p style='text-align: justify;'&gt;Los paquetes se instalan solo una vez en nuestro equipo (pero se deben actualizar cada cierto tiempo).&lt;/p&gt;
+
+
+---
+# Paquetes de R
+
+&lt;p style='text-align: justify;'&gt;Para usar las funciones y datos contenidos en un paquete tenemos que “activarlo” en nuestra sesión de R:&lt;/p&gt;
+
+
+```r
+library(nombrepaquete)
+```
+
+Luego de esto, aparecerán disponibles en nuestra sesión las funciones de ese paquete.
+
+
+&lt;p style='text-align: justify;'&gt; Hay tantos paquetes en R que a veces pueden existir múltiples funciones con el mismo nombre, si tenemos ambos paquetes cargados esto puede causar problemas en nuestro código. Podemos especificar de qué paquete viene una función con usando &lt;code&gt;::&lt;/code&gt; de la siguiente forma:&lt;/p&gt;
+
+
+```r
+nombrepaquete::nombrefuncion
+```
+
+
+
+
+---
+# Ahora...
+
+Instalemos el paquete **ggplot2**
+
+
+```r
+ install.packages("ggplot2")
+```
+
+
+&lt;br/&gt;
+
+Para activar el paquete usamos:
+
+```r
+ library(ggplot2)
+```
+
+---
+name: error
+
+# Errores 
+
+La mayoría de los errores que cometemos son por problemas de tipeo: 
+
+&lt;ul&gt;
+&lt;li&gt;Escribimos mal el nombre de una función u objeto. &lt;/li&gt;
+&lt;li&gt;Nos falta cerrar un paréntesis. &lt;/li&gt;
+&lt;li&gt;Nos falta una coma. &lt;/li&gt;
+&lt;/ul&gt;
+
+En caso de que falte un paréntesis o una coma, el editor de RStudio nos lo advertirá
+
+&lt;p style='text-align: justify;'&gt;A veces se generan problemas porque olvidamos correr una línea de código o porque sobreescribimos un objeto. En esos casos, lo mejor es reiniciar R y volver a ejecutar el código desde el principio. &lt;/p&gt;
+
+.center[&lt;b&gt;¡Recuerda que equivocarse es normal!&lt;/b&gt;]
+   
+&lt;b&gt;&lt;p style='text-align: justify; color:#23395b ;'&gt;Buscadores como Google ayudan mucho a resolver errores, saber como buscar soluciones a tus dificultades de manera eficiente es una herramienta importante para cualquier lenguaje de programación. &lt;/p&gt;&lt;/b&gt;
+
+
+---
+name: adios
+
+# Referencias y Material Complementario
+
+
+1. [**R para Ciencia de Datos**](https://es.r4ds.hadley.nz/) : Libro en línea, en español.
+
+2. [**RStudio cheatsheets**](https://rstudio.com/resources/cheatsheets/) : “Torpedos”; en la parte inferior de la página hay versiones en español disponibles.
+
+3. [**RStudio Primers**](https://rstudio.cloud/learn/primers): Ejercicios interactivos;  en inglés.
+
+4. [**Hands-on Programming with R**](https://rstudio-education.github.io/hopr/) : Libro en línea de introducción a la programación en R que no requiere conocimientos previos; en inglés.
+
+5. [**Curso de Estadística Computacional**](https://tereom.github.io/est-computacional-2019/) : Libro de apoyo para el curso Estadística Computacional dictado por María Teresa Ortiz. 
+
+---
+class: inverse, center, middle
+
+# ¡Gracias!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:12"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
