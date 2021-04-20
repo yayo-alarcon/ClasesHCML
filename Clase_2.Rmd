@@ -1,0 +1,360 @@
+---
+title: "Herramientas Computacionales, Algoritmos y Machine Learning (HCML)"
+subtitle: "Clase 2: Tipos y estructura de datos en R"
+author: "John Smith"
+institute: "Pontificia Universidad Católica de Chile"
+date: ""
+output:
+  xaringan::moon_reader:
+    css:  
+      - xaringan-themer.css
+      - estilos.css
+    lib_dir: libs
+    seal: false
+    nature:
+      titleSlideClass: "inverse"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:12" 
+---
+
+class: left, bottom
+background-image: url(media/logo.png)
+background-position: 95% 7%
+background-size: 40%
+
+# `r rmarkdown::metadata$title`
+----
+## `r rmarkdown::metadata$subtitle`
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_light(base_color = "#23395b",
+#style_duo(
+ # primary_color = "#576675",
+ # secondary_color="#f5f5dc", # FF7373
+  header_font_google = google_font("Fjalla One"),
+  text_font_google   = google_font("Roboto"),
+  code_font_google   = google_font("Fira Mono")
+)
+
+
+```
+
+---
+class: left, middle
+
+# Clase 2: Tipos y estructura de datos en R
+
+.pull-left[
+.left[
+
+]
+
+] 
+
+.pull-right[
+.left[
+
+]
+
+] 
+
+
+---
+
+# Tipos de datos
+
+<p> En R tenemos definidos distintos clases y tipos de datos, estos dependen del tipo de información que contengan en su interior. Con los comandos <code class='bold'>class()</code> y <code class='bold'>typeof()</code> podemos preguntar que tipo de dato es cada elemento. </p>
+
+
+Los principales tipos de datos en R son los siguientes:
+
+| Tipo de dato | Descripción | Ejemplo |
+|---------|---------|---------|
+| `integer` | Números reales  | -1, 0, 1 |
+| `numerico` | Números enteros | -0.5, 1/2, 1 |
+| `character` | Texto | "palabra", "y" |
+| `logical` | Verdadero o Falso | 'TRUE' 'FALSE' | 
+
+
+<p>Hay muchos otros tipos de datos en R, por ejemplo hay datos <code class='bold'>complex</code> (números complejos), <code class='bold'>date</code> (fechas), <code class='bold'>factor</code> (datos categóricos), etc.</p>
+
+---
+
+# Vectores 
+
+Un vector es un ordenamiento unimensional de datos, dentro de un vector sólo puede existir un tipo de dato. En R los vectores se definen con el comando <code class='bold'>c()</code> y cada elemento se separa con una coma: 
+
+--
+
+<b class='azul'>Vector numérico</b>
+```{r}
+vector_1 <- c(-1/2, 1, 0.5)
+class(vector_1)
+```
+
+--
+
+<b class='azul'>Vector con letras</b>
+```{r}
+vector_2 <- c("A", "B","C")
+class(vector_2)
+```
+
+--
+
+.center[**¿Qué tipo de dato sería el vector `c(1,"dos",3)` ?**]
+
+---
+
+### Funciones para generar vectores
+
+En la siguiente tabla se muestran algunas de las principales funciones usadas para facilitar la creación de vectores en R:
+
+| Función | Descripción | Ejemplo |
+|-----|------|-----|
+| a:b | Genera una secuencia de números naturales entre a y b | `5:10` |
+| seq() | Genera una secuencia de números a un intervalo regular | `seq(from= -5,to=5,by= 0.5)` |
+| rep() | Genera una secuencia de repetición de elementos de un vector base | `rep(c("a","b"),times=3)` |
+| letters | Vector constante con las letras desde la "a" a la "z" en minuscula | `letters` |
+| LETTERS | Vector constante con las letras desde la "A" a la "Z" en mayúscula | `LETTERS` |
+
+---
+
+Con el comando `length()` uno puede extraer el largo de un vector.
+
+Uno puede preguntarle a R si un elemento es o no un vector con el comando <code class='bold'>is.vector()</code>
+
+
+```{r}
+is.vector( c(1,2,3) )
+```
+
+De la misma forma, uno puede transformar un objeto a un vector con el comando <code class='bold'>as.vector()</code>.
+
+<b>Seleccionar un elemento dentro de un vector</b>
+
+Para seleccionar el elemento de un vector en R usamos los corchetes <code class='bold'>[]</code>, de la siguiente forma:
+
+.center[**`objeto[i]`** extrae el i-ésimo elemento del vector llamado *objeto*]
+
+---
+
+name: matriz
+
+# Matrices 
+
+<p>Una matriz (<code>matrix</code>) es un arreglo de datos en una estructura bi-dimensional, entendidas como filas y columnas. En R las matrices funcionan como una extensión de los vectores, dado que dentro de una matriz sólo puede existir un tipo de dato. Hay muchas formas de generar matrices, la manera más directa es usando el comando <code class='bold'>matrix():</code></p>
+
+.center[ `matrix(vector, n_col = n, n_row = m, byrow = FALSE )` ]
+
+.pull-left[
+```{r}
+matrix(1:9, ncol=3)
+```
+
+
+]
+
+.pull-right[
+```{r}
+matrix(letters[1:9],ncol=3)
+```
+]
+
+---
+
+### Concatenación de vectores
+
+Uno puede transformar un conjunto de vectores en una matriz con ayuda de los comandos <code class='bold'>cbind()</code> y <code class='rbind()'></code>, el primero junta vectores de manera vertical (columna) y el segundo de manera horizontal (fila):
+
+```{r}
+v_1 <- 1:5
+v_2 <- LETTERS[1:5]
+```
+
+
+.pull-left[
+<b>Concatenación por columnas (c)</b>
+```{r}
+cbind(v_1,v_2)
+```
+
+
+]
+
+
+
+.pull-right[
+<b>Concatenación por filas (r)</b>
+```{r}
+rbind(v_1,v_2)
+```
+]
+
+---
+
+<b>Seleccionar elementos de una matriz</b>
+
+.center[**`nombre_matriz[i, j]`** ~ i=filas, j=columnas]
+
+---
+# Data frame
+
+Un data frame es un arreglo de datos en una estructura bi-dimensional, a diferencia de una matriz un data frame puede tener columnas de distintos tipos de datos. En un data frame las columnas representan variables y las filas representan a individuos u observaciones.
+
+
+
+---
+
+<b>Seleccionar variables de un data frame</b>
+
+<ul>
+  <li>Seleccionar con posición de variable<li>
+    <ul>
+      <li> base[, n_variable] </li>
+      <li> base[[n_variable]]
+    </ul>
+  <li>Seleccionar con nombre de variable</li>  
+    <ul>
+      <li> base$nombre_variable</li>
+      <li> base[[ 'nombre_variable' ]]</li>
+    </ul>
+</ul>
+
+</br>
+
+<b> Seleccionar observaciones de un data frame </b>
+
+<ul>
+  <li>base[i,] : Todas las columnas, i-ésima fila</li>
+  <li>base[i,j] : i-ésima fila, j-ésima columna</li>
+  <li>base[vector_fila,vector_columna]: todas las filas en vector fila y columnas en vector columna</li>
+</ul>
+---
+
+# Tibble
+
+<p>Los tibbles son data frames, pero tienen características que hacen su manejo más fácil y más acorde con la actualidad. La librería <code class='bold'>tibble</code> pertenece a la librería <code class='bold'>tidyverse</code> que veremos en profundidad en la próxima clase, por lo que lo instalaremos y lo cargaremos en nuestra sesión: </p>
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(tibble)
+```
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+<p>Para transformar un data frame o una matriz a un objeto <code>tibble</code> usaremos el comando <code class='bold'>as_tibble()</code> de la siguiente forma:</p>
+
+```{r, eval=FALSE}
+base_tibble = as_tibble(base_dataframe)
+```
+
+<p>Dependiendo de cómo importamos las bases de datos externas es probable que las bases de datos vengan pregarcadas como <code>tibble</code> </p>
+
+---
+
+### Beneficios de usar `tibble`
+
+<b>Impresión en la consola</b>
+
+<p>En comparación a un data frame, los tibble se imprimen de una manera mucho más limbia en la consola representando un resumen claro de la base de datos:</p>
+
+.pull-left[
+```{r}
+cars
+```
+]
+
+.pull-right[
+```{r}
+cars_tibble <- as_tibble(cars)
+cars_tibble
+```
+]
+
+---
+
+<p> Los beneficios de impresion <code>tibble</code> se notan más cuando se tienen bases de datos amplias, dado que solo muestran las primeras 10 filas y solo aquellas columnas que entran en el ancho de la pantalla</p>
+
+```{r}
+iris_tibble = as_tibble(iris)
+iris_tibble
+```
+
+---
+
+```{r}
+iris
+```
+
+---
+
+# Cosas que faltan
+
+
+### Listas
+
+### Operadores lógicos
+
+### Valores no disponibles (NA)
+
+
+---
+
+
+### Actividad
+
+Considere la siguiente tabla:
+
+
+| Nombre | Grupo Sanguíneo | Altura (cm) |
+| ------ | --------------- | ----------- |
+| Andrea  | AB | 165 |
+| Bastian | O  | 180 |
+| Camilo  | A  | 158 |
+| Daniela | B  | 170 |
+--
+
+Genere esta tabla en un dataframe
+
+1.- Definimos las columnas de las matrices en vectores:
+```{r}
+nombre <- c("Andrea","Bastian","Camilo","Daniela")
+grupo_s <- c("AB", "0", "A", "B")
+altura_cm <- c(165, 180, 158, 170)
+```
+
+---
+
+
+2.- Guardamos en el objeto 'tabla' el data frame:
+```{r}
+tabla <- data.frame(nombre,grupo_s,altura_cm)
+tabla
+```
+
+```{r}
+tabla = data.frame(
+  nombre = c("Andrea","Bastian","Camilo","Daniela"),
+  grupo_s = c("AB", "0", "A", "B"),
+  altura_cm = c(165, 180, 158, 170)
+)
+tabla
+```
+
+
+
+
+
+
+
+
+
+

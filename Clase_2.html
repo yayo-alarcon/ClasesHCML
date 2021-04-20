@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Herramientas Computacionales, Algoritmos y Machine Learning (HCML)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="John Smith" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="estilos.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: left, bottom
+background-image: url(media/logo.png)
+background-position: 95% 7%
+background-size: 40%
+
+# Herramientas Computacionales, Algoritmos y Machine Learning (HCML)
+----
+## Clase 2: Tipos y estructura de datos en R
+### John Smith
+### 
+
+
+
+---
+class: left, middle
+
+# Clase 2: Tipos y estructura de datos en R
+
+.pull-left[
+.left[
+
+]
+
+] 
+
+.pull-right[
+.left[
+
+]
+
+] 
+
+
+---
+
+# Tipos de datos
+
+&lt;p&gt; En R tenemos definidos distintos clases y tipos de datos, estos dependen del tipo de información que contengan en su interior. Con los comandos &lt;code class='bold'&gt;class()&lt;/code&gt; y &lt;code class='bold'&gt;typeof()&lt;/code&gt; podemos preguntar que tipo de dato es cada elemento. &lt;/p&gt;
+
+
+Los principales tipos de datos en R son los siguientes:
+
+| Tipo de dato | Descripción | Ejemplo |
+|---------|---------|---------|
+| `integer` | Números reales  | -1, 0, 1 |
+| `numerico` | Números enteros | -0.5, 1/2, 1 |
+| `character` | Texto | "palabra", "y" |
+| `logical` | Verdadero o Falso | 'TRUE' 'FALSE' | 
+
+
+&lt;p&gt;Hay muchos otros tipos de datos en R, por ejemplo hay datos &lt;code class='bold'&gt;complex&lt;/code&gt; (números complejos), &lt;code class='bold'&gt;date&lt;/code&gt; (fechas), &lt;code class='bold'&gt;factor&lt;/code&gt; (datos categóricos), etc.&lt;/p&gt;
+
+---
+
+# Vectores 
+
+Un vector es un ordenamiento unimensional de datos, dentro de un vector sólo puede existir un tipo de dato. En R los vectores se definen con el comando &lt;code class='bold'&gt;c()&lt;/code&gt; y cada elemento se separa con una coma: 
+
+--
+
+&lt;b class='azul'&gt;Vector numérico&lt;/b&gt;
+
+```r
+vector_1 &lt;- c(-1/2, 1, 0.5)
+class(vector_1)
+```
+
+```
+## [1] "numeric"
+```
+
+--
+
+&lt;b class='azul'&gt;Vector con letras&lt;/b&gt;
+
+```r
+vector_2 &lt;- c("A", "B","C")
+class(vector_2)
+```
+
+```
+## [1] "character"
+```
+
+--
+
+.center[**¿Qué tipo de dato sería el vector `c(1,"dos",3)` ?**]
+
+---
+
+### Funciones para generar vectores
+
+En la siguiente tabla se muestran algunas de las principales funciones usadas para facilitar la creación de vectores en R:
+
+| Función | Descripción | Ejemplo |
+|-----|------|-----|
+| a:b | Genera una secuencia de números naturales entre a y b | `5:10` |
+| seq() | Genera una secuencia de números a un intervalo regular | `seq(from= -5,to=5,by= 0.5)` |
+| rep() | Genera una secuencia de repetición de elementos de un vector base | `rep(c("a","b"),times=3)` |
+| letters | Vector constante con las letras desde la "a" a la "z" en minuscula | `letters` |
+| LETTERS | Vector constante con las letras desde la "A" a la "Z" en mayúscula | `LETTERS` |
+
+---
+
+Con el comando `length()` uno puede extraer el largo de un vector.
+
+Uno puede preguntarle a R si un elemento es o no un vector con el comando &lt;code class='bold'&gt;is.vector()&lt;/code&gt;
+
+
+
+```r
+is.vector( c(1,2,3) )
+```
+
+```
+## [1] TRUE
+```
+
+De la misma forma, uno puede transformar un objeto a un vector con el comando &lt;code class='bold'&gt;as.vector()&lt;/code&gt;.
+
+&lt;b&gt;Seleccionar un elemento dentro de un vector&lt;/b&gt;
+
+Para seleccionar el elemento de un vector en R usamos los corchetes &lt;code class='bold'&gt;[]&lt;/code&gt;, de la siguiente forma:
+
+.center[**`objeto[i]`** extrae el i-ésimo elemento del vector llamado *objeto*]
+
+---
+
+name: matriz
+
+# Matrices 
+
+&lt;p&gt;Una matriz (&lt;code&gt;matrix&lt;/code&gt;) es un arreglo de datos en una estructura bi-dimensional, entendidas como filas y columnas. En R las matrices funcionan como una extensión de los vectores, dado que dentro de una matriz sólo puede existir un tipo de dato. Hay muchas formas de generar matrices, la manera más directa es usando el comando &lt;code class='bold'&gt;matrix():&lt;/code&gt;&lt;/p&gt;
+
+.center[ `matrix(vector, n_col = n, n_row = m, byrow = FALSE )` ]
+
+.pull-left[
+
+```r
+matrix(1:9, ncol=3)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+```
+
+
+]
+
+.pull-right[
+
+```r
+matrix(letters[1:9],ncol=3)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,] "a"  "d"  "g" 
+## [2,] "b"  "e"  "h" 
+## [3,] "c"  "f"  "i"
+```
+]
+
+---
+
+### Concatenación de vectores
+
+Uno puede transformar un conjunto de vectores en una matriz con ayuda de los comandos &lt;code class='bold'&gt;cbind()&lt;/code&gt; y &lt;code class='rbind()'&gt;&lt;/code&gt;, el primero junta vectores de manera vertical (columna) y el segundo de manera horizontal (fila):
+
+
+```r
+v_1 &lt;- 1:5
+v_2 &lt;- LETTERS[1:5]
+```
+
+
+.pull-left[
+&lt;b&gt;Concatenación por columnas (c)&lt;/b&gt;
+
+```r
+cbind(v_1,v_2)
+```
+
+```
+##      v_1 v_2
+## [1,] "1" "A"
+## [2,] "2" "B"
+## [3,] "3" "C"
+## [4,] "4" "D"
+## [5,] "5" "E"
+```
+
+
+]
+
+
+
+.pull-right[
+&lt;b&gt;Concatenación por filas (r)&lt;/b&gt;
+
+```r
+rbind(v_1,v_2)
+```
+
+```
+##     [,1] [,2] [,3] [,4] [,5]
+## v_1 "1"  "2"  "3"  "4"  "5" 
+## v_2 "A"  "B"  "C"  "D"  "E"
+```
+]
+
+---
+
+&lt;b&gt;Seleccionar elementos de una matriz&lt;/b&gt;
+
+.center[**`nombre_matriz[i, j]`** ~ i=filas, j=columnas]
+
+---
+# Data frame
+
+Un data frame es un arreglo de datos en una estructura bi-dimensional, a diferencia de una matriz un data frame puede tener columnas de distintos tipos de datos. En un data frame las columnas representan variables y las filas representan a individuos u observaciones.
+
+
+
+---
+
+&lt;b&gt;Seleccionar variables de un data frame&lt;/b&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Seleccionar con posición de variable&lt;li&gt;
+    &lt;ul&gt;
+      &lt;li&gt; base[, n_variable] &lt;/li&gt;
+      &lt;li&gt; base[[n_variable]]
+    &lt;/ul&gt;
+  &lt;li&gt;Seleccionar con nombre de variable&lt;/li&gt;  
+    &lt;ul&gt;
+      &lt;li&gt; base$nombre_variable&lt;/li&gt;
+      &lt;li&gt; base[[ 'nombre_variable' ]]&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/ul&gt;
+
+&lt;/br&gt;
+
+&lt;b&gt; Seleccionar observaciones de un data frame &lt;/b&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;base[i,] : Todas las columnas, i-ésima fila&lt;/li&gt;
+  &lt;li&gt;base[i,j] : i-ésima fila, j-ésima columna&lt;/li&gt;
+  &lt;li&gt;base[vector_fila,vector_columna]: todas las filas en vector fila y columnas en vector columna&lt;/li&gt;
+&lt;/ul&gt;
+---
+
+# Tibble
+
+&lt;p&gt;Los tibbles son data frames, pero tienen características que hacen su manejo más fácil y más acorde con la actualidad. La librería &lt;code class='bold'&gt;tibble&lt;/code&gt; pertenece a la librería &lt;code class='bold'&gt;tidyverse&lt;/code&gt; que veremos en profundidad en la próxima clase, por lo que lo instalaremos y lo cargaremos en nuestra sesión: &lt;/p&gt;
+
+
+
+
+```r
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+&lt;p&gt;Para transformar un data frame o una matriz a un objeto &lt;code&gt;tibble&lt;/code&gt; usaremos el comando &lt;code class='bold'&gt;as_tibble()&lt;/code&gt; de la siguiente forma:&lt;/p&gt;
+
+
+```r
+base_tibble = as_tibble(base_dataframe)
+```
+
+&lt;p&gt;Dependiendo de cómo importamos las bases de datos externas es probable que las bases de datos vengan pregarcadas como &lt;code&gt;tibble&lt;/code&gt; &lt;/p&gt;
+
+---
+
+### Beneficios de usar `tibble`
+
+&lt;b&gt;Impresión en la consola&lt;/b&gt;
+
+&lt;p&gt;En comparación a un data frame, los tibble se imprimen de una manera mucho más limbia en la consola representando un resumen claro de la base de datos:&lt;/p&gt;
+
+.pull-left[
+
+```r
+cars
+```
+
+```
+##    speed dist
+## 1      4    2
+## 2      4   10
+## 3      7    4
+## 4      7   22
+## 5      8   16
+## 6      9   10
+## 7     10   18
+## 8     10   26
+## 9     10   34
+## 10    11   17
+## 11    11   28
+## 12    12   14
+## 13    12   20
+## 14    12   24
+## 15    12   28
+## 16    13   26
+## 17    13   34
+## 18    13   34
+## 19    13   46
+## 20    14   26
+## 21    14   36
+## 22    14   60
+## 23    14   80
+## 24    15   20
+## 25    15   26
+## 26    15   54
+## 27    16   32
+## 28    16   40
+## 29    17   32
+## 30    17   40
+## 31    17   50
+## 32    18   42
+## 33    18   56
+## 34    18   76
+## 35    18   84
+## 36    19   36
+## 37    19   46
+## 38    19   68
+## 39    20   32
+## 40    20   48
+## 41    20   52
+## 42    20   56
+## 43    20   64
+## 44    22   66
+## 45    23   54
+## 46    24   70
+## 47    24   92
+## 48    24   93
+## 49    24  120
+## 50    25   85
+```
+]
+
+.pull-right[
+
+```r
+cars_tibble &lt;- as_tibble(cars)
+cars_tibble
+```
+
+```
+## # A tibble: 50 x 2
+##    speed  dist
+##    &lt;dbl&gt; &lt;dbl&gt;
+##  1     4     2
+##  2     4    10
+##  3     7     4
+##  4     7    22
+##  5     8    16
+##  6     9    10
+##  7    10    18
+##  8    10    26
+##  9    10    34
+## 10    11    17
+## # ... with 40 more rows
+```
+]
+
+---
+
+&lt;p&gt; Los beneficios de impresion &lt;code&gt;tibble&lt;/code&gt; se notan más cuando se tienen bases de datos amplias, dado que solo muestran las primeras 10 filas y solo aquellas columnas que entran en el ancho de la pantalla&lt;/p&gt;
+
+
+```r
+iris_tibble = as_tibble(iris)
+iris_tibble
+```
+
+```
+## # A tibble: 150 x 5
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
+##  1          5.1         3.5          1.4         0.2 setosa 
+##  2          4.9         3            1.4         0.2 setosa 
+##  3          4.7         3.2          1.3         0.2 setosa 
+##  4          4.6         3.1          1.5         0.2 setosa 
+##  5          5           3.6          1.4         0.2 setosa 
+##  6          5.4         3.9          1.7         0.4 setosa 
+##  7          4.6         3.4          1.4         0.3 setosa 
+##  8          5           3.4          1.5         0.2 setosa 
+##  9          4.4         2.9          1.4         0.2 setosa 
+## 10          4.9         3.1          1.5         0.1 setosa 
+## # ... with 140 more rows
+```
+
+---
+
+
+```r
+iris
+```
+
+```
+##     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+## 1            5.1         3.5          1.4         0.2     setosa
+## 2            4.9         3.0          1.4         0.2     setosa
+## 3            4.7         3.2          1.3         0.2     setosa
+## 4            4.6         3.1          1.5         0.2     setosa
+## 5            5.0         3.6          1.4         0.2     setosa
+## 6            5.4         3.9          1.7         0.4     setosa
+## 7            4.6         3.4          1.4         0.3     setosa
+## 8            5.0         3.4          1.5         0.2     setosa
+## 9            4.4         2.9          1.4         0.2     setosa
+## 10           4.9         3.1          1.5         0.1     setosa
+## 11           5.4         3.7          1.5         0.2     setosa
+## 12           4.8         3.4          1.6         0.2     setosa
+## 13           4.8         3.0          1.4         0.1     setosa
+## 14           4.3         3.0          1.1         0.1     setosa
+## 15           5.8         4.0          1.2         0.2     setosa
+## 16           5.7         4.4          1.5         0.4     setosa
+## 17           5.4         3.9          1.3         0.4     setosa
+## 18           5.1         3.5          1.4         0.3     setosa
+## 19           5.7         3.8          1.7         0.3     setosa
+## 20           5.1         3.8          1.5         0.3     setosa
+## 21           5.4         3.4          1.7         0.2     setosa
+## 22           5.1         3.7          1.5         0.4     setosa
+## 23           4.6         3.6          1.0         0.2     setosa
+## 24           5.1         3.3          1.7         0.5     setosa
+## 25           4.8         3.4          1.9         0.2     setosa
+## 26           5.0         3.0          1.6         0.2     setosa
+## 27           5.0         3.4          1.6         0.4     setosa
+## 28           5.2         3.5          1.5         0.2     setosa
+## 29           5.2         3.4          1.4         0.2     setosa
+## 30           4.7         3.2          1.6         0.2     setosa
+## 31           4.8         3.1          1.6         0.2     setosa
+## 32           5.4         3.4          1.5         0.4     setosa
+## 33           5.2         4.1          1.5         0.1     setosa
+## 34           5.5         4.2          1.4         0.2     setosa
+## 35           4.9         3.1          1.5         0.2     setosa
+## 36           5.0         3.2          1.2         0.2     setosa
+## 37           5.5         3.5          1.3         0.2     setosa
+## 38           4.9         3.6          1.4         0.1     setosa
+## 39           4.4         3.0          1.3         0.2     setosa
+## 40           5.1         3.4          1.5         0.2     setosa
+## 41           5.0         3.5          1.3         0.3     setosa
+## 42           4.5         2.3          1.3         0.3     setosa
+## 43           4.4         3.2          1.3         0.2     setosa
+## 44           5.0         3.5          1.6         0.6     setosa
+## 45           5.1         3.8          1.9         0.4     setosa
+## 46           4.8         3.0          1.4         0.3     setosa
+## 47           5.1         3.8          1.6         0.2     setosa
+## 48           4.6         3.2          1.4         0.2     setosa
+## 49           5.3         3.7          1.5         0.2     setosa
+## 50           5.0         3.3          1.4         0.2     setosa
+## 51           7.0         3.2          4.7         1.4 versicolor
+## 52           6.4         3.2          4.5         1.5 versicolor
+## 53           6.9         3.1          4.9         1.5 versicolor
+## 54           5.5         2.3          4.0         1.3 versicolor
+## 55           6.5         2.8          4.6         1.5 versicolor
+## 56           5.7         2.8          4.5         1.3 versicolor
+## 57           6.3         3.3          4.7         1.6 versicolor
+## 58           4.9         2.4          3.3         1.0 versicolor
+## 59           6.6         2.9          4.6         1.3 versicolor
+## 60           5.2         2.7          3.9         1.4 versicolor
+## 61           5.0         2.0          3.5         1.0 versicolor
+## 62           5.9         3.0          4.2         1.5 versicolor
+## 63           6.0         2.2          4.0         1.0 versicolor
+## 64           6.1         2.9          4.7         1.4 versicolor
+## 65           5.6         2.9          3.6         1.3 versicolor
+## 66           6.7         3.1          4.4         1.4 versicolor
+## 67           5.6         3.0          4.5         1.5 versicolor
+## 68           5.8         2.7          4.1         1.0 versicolor
+## 69           6.2         2.2          4.5         1.5 versicolor
+## 70           5.6         2.5          3.9         1.1 versicolor
+## 71           5.9         3.2          4.8         1.8 versicolor
+## 72           6.1         2.8          4.0         1.3 versicolor
+## 73           6.3         2.5          4.9         1.5 versicolor
+## 74           6.1         2.8          4.7         1.2 versicolor
+## 75           6.4         2.9          4.3         1.3 versicolor
+## 76           6.6         3.0          4.4         1.4 versicolor
+## 77           6.8         2.8          4.8         1.4 versicolor
+## 78           6.7         3.0          5.0         1.7 versicolor
+## 79           6.0         2.9          4.5         1.5 versicolor
+## 80           5.7         2.6          3.5         1.0 versicolor
+## 81           5.5         2.4          3.8         1.1 versicolor
+## 82           5.5         2.4          3.7         1.0 versicolor
+## 83           5.8         2.7          3.9         1.2 versicolor
+## 84           6.0         2.7          5.1         1.6 versicolor
+## 85           5.4         3.0          4.5         1.5 versicolor
+## 86           6.0         3.4          4.5         1.6 versicolor
+## 87           6.7         3.1          4.7         1.5 versicolor
+## 88           6.3         2.3          4.4         1.3 versicolor
+## 89           5.6         3.0          4.1         1.3 versicolor
+## 90           5.5         2.5          4.0         1.3 versicolor
+## 91           5.5         2.6          4.4         1.2 versicolor
+## 92           6.1         3.0          4.6         1.4 versicolor
+## 93           5.8         2.6          4.0         1.2 versicolor
+## 94           5.0         2.3          3.3         1.0 versicolor
+## 95           5.6         2.7          4.2         1.3 versicolor
+## 96           5.7         3.0          4.2         1.2 versicolor
+## 97           5.7         2.9          4.2         1.3 versicolor
+## 98           6.2         2.9          4.3         1.3 versicolor
+## 99           5.1         2.5          3.0         1.1 versicolor
+## 100          5.7         2.8          4.1         1.3 versicolor
+## 101          6.3         3.3          6.0         2.5  virginica
+## 102          5.8         2.7          5.1         1.9  virginica
+## 103          7.1         3.0          5.9         2.1  virginica
+## 104          6.3         2.9          5.6         1.8  virginica
+## 105          6.5         3.0          5.8         2.2  virginica
+## 106          7.6         3.0          6.6         2.1  virginica
+## 107          4.9         2.5          4.5         1.7  virginica
+## 108          7.3         2.9          6.3         1.8  virginica
+## 109          6.7         2.5          5.8         1.8  virginica
+## 110          7.2         3.6          6.1         2.5  virginica
+## 111          6.5         3.2          5.1         2.0  virginica
+## 112          6.4         2.7          5.3         1.9  virginica
+## 113          6.8         3.0          5.5         2.1  virginica
+## 114          5.7         2.5          5.0         2.0  virginica
+## 115          5.8         2.8          5.1         2.4  virginica
+## 116          6.4         3.2          5.3         2.3  virginica
+## 117          6.5         3.0          5.5         1.8  virginica
+## 118          7.7         3.8          6.7         2.2  virginica
+## 119          7.7         2.6          6.9         2.3  virginica
+## 120          6.0         2.2          5.0         1.5  virginica
+## 121          6.9         3.2          5.7         2.3  virginica
+## 122          5.6         2.8          4.9         2.0  virginica
+## 123          7.7         2.8          6.7         2.0  virginica
+## 124          6.3         2.7          4.9         1.8  virginica
+## 125          6.7         3.3          5.7         2.1  virginica
+## 126          7.2         3.2          6.0         1.8  virginica
+## 127          6.2         2.8          4.8         1.8  virginica
+## 128          6.1         3.0          4.9         1.8  virginica
+## 129          6.4         2.8          5.6         2.1  virginica
+## 130          7.2         3.0          5.8         1.6  virginica
+## 131          7.4         2.8          6.1         1.9  virginica
+## 132          7.9         3.8          6.4         2.0  virginica
+## 133          6.4         2.8          5.6         2.2  virginica
+## 134          6.3         2.8          5.1         1.5  virginica
+## 135          6.1         2.6          5.6         1.4  virginica
+## 136          7.7         3.0          6.1         2.3  virginica
+## 137          6.3         3.4          5.6         2.4  virginica
+## 138          6.4         3.1          5.5         1.8  virginica
+## 139          6.0         3.0          4.8         1.8  virginica
+## 140          6.9         3.1          5.4         2.1  virginica
+## 141          6.7         3.1          5.6         2.4  virginica
+## 142          6.9         3.1          5.1         2.3  virginica
+## 143          5.8         2.7          5.1         1.9  virginica
+## 144          6.8         3.2          5.9         2.3  virginica
+## 145          6.7         3.3          5.7         2.5  virginica
+## 146          6.7         3.0          5.2         2.3  virginica
+## 147          6.3         2.5          5.0         1.9  virginica
+## 148          6.5         3.0          5.2         2.0  virginica
+## 149          6.2         3.4          5.4         2.3  virginica
+## 150          5.9         3.0          5.1         1.8  virginica
+```
+
+---
+
+# Cosas que faltan
+
+
+### Listas
+
+### Operadores lógicos
+
+### Valores no disponibles (NA)
+
+
+---
+
+
+### Actividad
+
+Considere la siguiente tabla:
+
+
+| Nombre | Grupo Sanguíneo | Altura (cm) |
+| ------ | --------------- | ----------- |
+| Andrea  | AB | 165 |
+| Bastian | O  | 180 |
+| Camilo  | A  | 158 |
+| Daniela | B  | 170 |
+--
+
+Genere esta tabla en un dataframe
+
+1.- Definimos las columnas de las matrices en vectores:
+
+```r
+nombre &lt;- c("Andrea","Bastian","Camilo","Daniela")
+grupo_s &lt;- c("AB", "0", "A", "B")
+altura_cm &lt;- c(165, 180, 158, 170)
+```
+
+---
+
+
+2.- Guardamos en el objeto 'tabla' el data frame:
+
+```r
+tabla &lt;- data.frame(nombre,grupo_s,altura_cm)
+tabla
+```
+
+```
+##    nombre grupo_s altura_cm
+## 1  Andrea      AB       165
+## 2 Bastian       0       180
+## 3  Camilo       A       158
+## 4 Daniela       B       170
+```
+
+
+```r
+tabla = data.frame(
+  nombre = c("Andrea","Bastian","Camilo","Daniela"),
+  grupo_s = c("AB", "0", "A", "B"),
+  altura_cm = c(165, 180, 158, 170)
+)
+tabla
+```
+
+```
+##    nombre grupo_s altura_cm
+## 1  Andrea      AB       165
+## 2 Bastian       0       180
+## 3  Camilo       A       158
+## 4 Daniela       B       170
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:12"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
