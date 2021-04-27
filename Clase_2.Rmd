@@ -1,7 +1,7 @@
 ---
 title: "Herramientas Computacionales, Algoritmos y Machine Learning (HCML)"
 subtitle: "Clase 2: Tipos y estructura de datos en R"
-author: "John Smith"
+author: "Gabriela Sandoval - Riva Quiroga - Camila Paredes"
 institute: "Pontificia Universidad Católica de Chile"
 date: ""
 output:
@@ -47,7 +47,7 @@ style_mono_light(base_color = "#23395b",
 ---
 class: left, middle
 
-# Clase 2: Tipos y estructura de datos en R
+## Clase 2: Tipos y estructura de datos en R
 
 .pull-left[
 .left[
@@ -125,6 +125,8 @@ En la siguiente tabla se muestran algunas de las principales funciones usadas pa
 
 ---
 
+### Funcionalidades adicionales
+
 Con el comando `length()` uno puede extraer el largo de un vector.
 
 Uno puede preguntarle a R si un elemento es o no un vector con el comando <code class='bold'>is.vector()</code>
@@ -198,42 +200,159 @@ rbind(v_1,v_2)
 
 ---
 
+### Funcionalidades adicionales
+
 <b>Seleccionar elementos de una matriz</b>
 
+En R los arreglos bi-dimensionales funcionan siempre con el orden (filas,columnas), usando esta lógica es cómo se pueden seleccionar elementos desde una matriz:
+
 .center[**`nombre_matriz[i, j]`** ~ i=filas, j=columnas]
+
+<b>Ejemplos:</b>
+
+<ul>
+  <li><code class='bold'>nombre_matriz[i,]</code>: Selecciona la i-ésima <b>fila</b> de la matriz.</li>
+  </br> 
+  <li><code class='bold'>nombre_matriz[,j]</code>: Selecciona la j-ésima <b>columna</b> de la matriz.</li>
+  </br>
+  <li><code class='bold'>nombre_matriz[i,j]</code>:  Selecciona el j-ésimo elemento de la i-ésima fila.</li>
+</ul>
+
+<p>El comando <code class='bold'>dim()</code> nos permite obtener las dimensiones de la matriz, el primer número corresponde al número de filas, el segundo al número de columnas. </p>
+
+<p>Uno puede preguntar si un objeto es una matriz con el comando <code class='bold'>is.matrix()</code> y uno puede transformar un objeto a una matriz con el comando <code class='bold'>as.matrix()</code></p>
 
 ---
 # Data frame
 
 Un data frame es un arreglo de datos en una estructura bi-dimensional, a diferencia de una matriz un data frame puede tener columnas de distintos tipos de datos. En un data frame las columnas representan variables y las filas representan a individuos u observaciones.
 
+|| Variable 1 | Variable 2 | ... | Variable n |
+|----- | ----- | ----- | ----- | ----- |
+|Observación 1| dato | dato | dato | dato |
+|Observación 2| dato | dato | dato | dato |
+|...| ... | ... | ... | ... |
+|Observación m| dato | dato | dato | dato |
+
+<p>Los data frame en R se pueden generar directamente con el comando <code class='bold'>data.frame()</code> o se pueden transformar otras estructuras definidas, por ejemplo, una matriz, con el comando <code class='bold'>as.data.frame()</code></p> 
+
+---
+### Creación de un data frame
+
+El comando data.frame() se puede usar de distintas formas:
+
+<p><b>Forma 1</b>: Usar vectores ya creados. En este todos los vectores deben ser del mismo largo, el nombre de cada vector de guardará como el nombre de cada columna del data frame. </p> 
+
+```{r eval=FALSE}
+var_1 <- c(a1,a1,...,an)
+...
+var_m <- c(z1,z2,...,zm)
+ 
+base_ejemplo <- data.frame(var_1, var_2, ... , var_n)
+```
+
+<p><b>Forma 2</b>: Definir directamente las columnas dentro del dataframe</p>
+
+```{r eval=FALSE}
+base_ejemplo <- data.frame(var_1 = c(a1,a1,...,an),
+                           ...,
+                           var_m = c(z1,z2,...,zm))
+```
+
+
 
 
 ---
 
-<b>Seleccionar variables de un data frame</b>
 
-<ul>
-  <li>Seleccionar con posición de variable<li>
-    <ul>
-      <li> base[, n_variable] </li>
-      <li> base[[n_variable]]
-    </ul>
-  <li>Seleccionar con nombre de variable</li>  
-    <ul>
-      <li> base$nombre_variable</li>
-      <li> base[[ 'nombre_variable' ]]</li>
-    </ul>
-</ul>
+### Ejemplo: Creación de un data frame
 
-</br>
+Consideremos la siguiente tabla: 
+
+| Nombre | Grupo Sanguíneo | Altura (cm) |
+| ------ | --------------- | ----------- |
+| Andrea  | AB | 165 |
+| Bastian | O  | 180 |
+| Camilo  | A  | 158 |
+| Daniela | B  | 170 |
+
+Definamos esta tabla como un data frame de las dos formas anteriores:
+
+---
+
+### Forma 1 
+
+
+1.- Definimos las columnas de las matrices en vectores:
+
+```{r}
+nombre <- c("Andrea","Bastian","Camilo","Daniela")
+grupo_s <- c("AB", "0", "A", "B")
+altura_cm <- c(165, 180, 158, 170)
+```
+
+--
+
+
+2.- Guardamos en el objeto 'tabla' el data frame:
+```{r}
+tabla <- data.frame(nombre,grupo_s,altura_cm)
+tabla
+```
+
+--
+```{r}
+names(tabla)
+```
+
+
+
+---
+
+### Forma 2
+
+Definimos directamete los vectores dentro del comando <code class='bold'>data.frame()</code>:
+```{r}
+tabla <- data.frame(
+  nombre = c("Andrea","Bastian","Camilo","Daniela"),
+  grupo_s = c("AB", "0", "A", "B"),
+  altura_cm = c(165, 180, 158, 170)
+)
+```
+
+```{r}
+tabla
+```
+
+```{r}
+names(tabla)
+```
+
+
+---
+
+### Selección de observaciones de un data frame
+
+<p>Un data frame funciona igual que una matriz, uno puede seleccionar directamente filas y columnas específicas con el uso de corchetes <code class='bold'>[]</code>.</p>
+
+<p>En los data frame es normal que las variables (columnas) tengan nombre, en R podemos usar estos nombres para seleccionar elementos de la base de datos:</p>
+
+<b>Seleccionar variables dado nombre de variables</b>
+```{r eval=FALSE}
+nombre_base$nombre_variable
+nombre_base[["nombre_variable"]]
+```
+
+
 
 <b> Seleccionar observaciones de un data frame </b>
 
 <ul>
-  <li>base[i,] : Todas las columnas, i-ésima fila</li>
-  <li>base[i,j] : i-ésima fila, j-ésima columna</li>
-  <li>base[vector_fila,vector_columna]: todas las filas en vector fila y columnas en vector columna</li>
+  <li><code class='bold'>base[i,]</code> : Todas las columnas, i-ésima observación (fila).</li>
+  </br>
+  <li><code class='bold'>base[i,j]</code> : i-ésima fila, j-ésima variable (columna).</li>
+  </br>
+  <li><code class='bold'>base[v_filas, v_columnas]</code> : todas las filas que están en <code class='bold'>v_filas</code> y columnas en <code class='bold'>v_columnas</code>.</li>
 </ul>
 ---
 
@@ -253,10 +372,10 @@ library(tidyverse)
 <p>Para transformar un data frame o una matriz a un objeto <code>tibble</code> usaremos el comando <code class='bold'>as_tibble()</code> de la siguiente forma:</p>
 
 ```{r, eval=FALSE}
-base_tibble = as_tibble(base_dataframe)
+base_tibble <- as_tibble(base_dataframe)
 ```
 
-<p>Dependiendo de cómo importamos las bases de datos externas es probable que las bases de datos vengan pregarcadas como <code>tibble</code> </p>
+<p>Dependiendo de cómo importamos las bases de datos externas es probable que las bases de datos vengan pregarcadas como <code class='bold'>tibble</code> </p>
 
 ---
 
@@ -284,7 +403,7 @@ cars_tibble
 <p> Los beneficios de impresion <code>tibble</code> se notan más cuando se tienen bases de datos amplias, dado que solo muestran las primeras 10 filas y solo aquellas columnas que entran en el ancho de la pantalla</p>
 
 ```{r}
-iris_tibble = as_tibble(iris)
+iris_tibble <- as_tibble(iris)
 iris_tibble
 ```
 
@@ -296,58 +415,150 @@ iris
 
 ---
 
-# Cosas que faltan
+### Creación de un tibble
 
-
-### Listas
-
-### Operadores lógicos
-
-### Valores no disponibles (NA)
-
-
----
-
-
-### Actividad
-
-Considere la siguiente tabla:
-
-
-| Nombre | Grupo Sanguíneo | Altura (cm) |
-| ------ | --------------- | ----------- |
-| Andrea  | AB | 165 |
-| Bastian | O  | 180 |
-| Camilo  | A  | 158 |
-| Daniela | B  | 170 |
---
-
-Genere esta tabla en un dataframe
-
-1.- Definimos las columnas de las matrices en vectores:
-```{r}
-nombre <- c("Andrea","Bastian","Camilo","Daniela")
-grupo_s <- c("AB", "0", "A", "B")
-altura_cm <- c(165, 180, 158, 170)
-```
-
----
-
-
-2.- Guardamos en el objeto 'tabla' el data frame:
-```{r}
-tabla <- data.frame(nombre,grupo_s,altura_cm)
-tabla
-```
+Los tibble se definen de la misma forma que un data frame, volvamos al ejemplo anterior:
 
 ```{r}
-tabla = data.frame(
+tabla_tibble <- tibble(
   nombre = c("Andrea","Bastian","Camilo","Daniela"),
   grupo_s = c("AB", "0", "A", "B"),
   altura_cm = c(165, 180, 158, 170)
 )
+
+tabla_tibble
+```
+
+De la misma forma, la forma de selección de variables y observaciones de un data frame funcionan en los tibble (<code class='bold'>$</code>, <code class='bold'>[[]]</code>, <code class='bold'>[]</code>).
+
+---
+# Valores no disponibles (NA)
+
+<p>En R los valores no disponibles (celdas vacías, valores perdidos, etc) se representan con <code>NA</code>, el tener elementos nulos dentro de un objeto de R <b>no</b> afecta la clase de este, por ejemplo:</p>
+
+```{r}
+vec_ejemplo <- c(1, NA, 3, NA, 5)
+class(vec_ejemplo)
+```
+
+```{r}
+tib_ejemplo <- tibble(
+  nombre = c("Claudio","Javiera","Elias", NA,"Camila"),
+  valor = c(10, NA, 7, NA, 15)
+)
+str(tib_ejemplo)
+```
+
+---
+### Omisión de NAs
+
+<p> A veces necesitamos eliminar las observaciones <code>NA</code> de nuestros elementos, dado que trabajar con datos incompletos genera problemas computacionales. El comando <code class='bold'>na.omit()</code> nos limpia nuestros objetos de valores faltantes, por ejemplo: </p>
+
+```{r}
+na.omit(vec_ejemplo)
+na.omit(tib_ejemplo)
+```
+
+---
+
+### Omisión de NAs
+
+Algunas funciones contienen argumentos que permiten omitir las observaciones NA de los elementos para realizar sus calculos, por ejemplo en la función <code class='bold'>sum()</code> existe el argumento <code>na.rm</code> que nos elimina los NA del cálculo de la suma:
+
+```{r}
+sum(vec_ejemplo)
+
+sum(vec_ejemplo, na.rm=TRUE)
+```
+
+
+
+---
+# Listas
+
+<p>Una lista es una estructura de datos unidimensional, pero en cada elemento de la lista pueden haber elementos de distinto tipo. Estas se definen con el comando <code class='bold'>list()</code> de la misma forma que se define un data frame o un tibble.</p>
+
+```{r}
+vec <- LETTERS[1:5]
+mat <- matrix(1:9,ncol=3)
+
+lista <- list( "Elemento_1" = vec,
+              "Elemento_2" = mat)
+lista
+```
+
+---
+
+### Seleccionar elementos de listas
+
+<p>Uno puede seleccionar elementos de listas usando <code class='bold'>$</code> o <code class='bold'>[[]]</code>, seleccionando con el nombre del elemento o la posición:</p>
+
+
+```{r}
+lista$Elemento_1
+lista[[2]]
+```
+
+.center[**¿Cómo podemos obtener la tercera fila del segundo elemento de nuestra lista?**]
+
+
+
+
+---
+# Operadores lógicos
+
+```{r warning=FALSE, echo=FALSE, message=FALSE}
+library(kableExtra)
+library(dplyr)
+a = tibble("Operador" = c("Menor que", 
+                          "Mayor que",
+                          "Menor o igual que",
+                          "Mayor o igual que",
+                          "Igual que",
+                          "Distinto que",
+                          "Intersección",
+                          "Unión",
+                          "Dentro de"),
+           "Código" = c("<",">","<=",">=","==","!=","&","|","%in%"))
+```
+
+<p>En R hay operadores lógicos, estos permiten realizar preguntas a R, las que serán respuestas como  verdadero (<code>TRUE</code>) o falso (<code>FALSE</code>), algunos operadores básicos son:</p>
+
+.pull-left[
+
+```{r warning=FALSE, echo=FALSE}
+a %>% kbl(align="lc") %>% kable_styling()
+```
+
+]
+
+--
+
+.pull-right[
+```{r}
+10 > 5
+"Gato" == "gato"
+c("a","B","c") %in% letters
+```
+]
+
+---
+
+### Usos de operadores lógicos
+
+Los operadores tienen múltiples usos, principalmente se usan para generar condiciones en la creación de funciones y filtrar bases de datos y/o vectores. Volvamos al ejemplo anterior: 
+
+```{r}
 tabla
 ```
+
+
+Supongamos que queremos seleccionar aquellas filas en donde la altura sea menor a 170 cm, esto se puede hacer de la siguiente forma:
+
+```{r}
+tabla[tabla$altura_cm < 170, ]
+```
+
 
 
 
